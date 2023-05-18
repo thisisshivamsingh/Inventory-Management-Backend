@@ -6,6 +6,7 @@ const requestRouter = require("./routes/requestRoutes");
 const storeRouter = require("./routes/storeRoutes");
 
 // Body parser, reading data from body into req.body
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // 3) ROUTES\
