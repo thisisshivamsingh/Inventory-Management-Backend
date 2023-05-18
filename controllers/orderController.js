@@ -5,9 +5,7 @@ exports.orderCreate = async (req, res, next) => {
     const doc = await Order.create(req.body);
     res.status(201).json({
       message: "success",
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   } catch (err) {
     res.status(404).json({
