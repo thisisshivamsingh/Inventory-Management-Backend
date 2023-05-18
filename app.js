@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const dropDownRouter = require("./routes/dropDownRoutes");
 const orderRouter = require("./routes/orderRoutes");
