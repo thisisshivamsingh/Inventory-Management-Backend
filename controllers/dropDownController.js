@@ -5,9 +5,7 @@ exports.createDropDown = async (req, res, next) => {
     const doc = await DropDown.create(req.body);
     res.status(201).json({
       status: "success",
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   } catch (err) {
     res.status(400).json({
