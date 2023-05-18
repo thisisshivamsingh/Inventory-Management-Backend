@@ -4,7 +4,7 @@ exports.createDropDown = async (req, res, next) => {
   try {
     const doc = await DropDown.create(req.body);
     res.status(201).json({
-      status: "success",
+      message: "success",
       data: doc,
     });
   } catch (err) {
@@ -29,9 +29,7 @@ exports.getDropDown = async (req, res, next) => {
     const doc = await query.skip(skip).limit(limit);
     res.status(200).json({
       message: "success",
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   } catch (err) {
     res.status(404).json({
