@@ -3,7 +3,7 @@ const DropDown = require("../models/dropDownModel");
 exports.createDropDown = async (req, res, next) => {
   try {
     const doc = await DropDown.create(req.body);
-    res.status(201).json({
+    res.status(200).json({
       message: "success",
       data: doc,
     });

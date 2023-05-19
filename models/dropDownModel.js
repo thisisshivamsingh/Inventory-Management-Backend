@@ -6,8 +6,8 @@ const dropDownSchema = new mongoose.Schema(
       type: String,
       required: [true, "Key is Required"],
       enum: {
-        values: ["item", "department", "user"],
-        message: "Key is either: item, department, user",
+        values: ["item", "department"],
+        message: "Key is either: item, department",
       },
     },
     value: {
