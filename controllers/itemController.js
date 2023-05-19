@@ -18,7 +18,7 @@ exports.createItem = async (req, res, next) => {
 exports.getItem = async (req, res, next) => {
   try {
     const filterObj = { departmentId: req.params.departId };
-    const query = DropDown.find(filterObj);
+    const query = Item.find(filterObj);
 
     // Pagination
     const page = req.query.page * 1 || 1;
