@@ -18,6 +18,8 @@ const dropDownSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 );
 
+dropDownSchema.index({ key: 1, value: 1 }, { unique: true });
+
 const DropDown = mongoose.model("DropDown", dropDownSchema);
 
 module.exports = DropDown;
