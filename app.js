@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 const dropDownRouter = require("./routes/dropDownRoutes");
+const itemRouter = require("./routes/itemRoutes");
 const orderRouter = require("./routes/orderRoutes");
 const requestRouter = require("./routes/requestRoutes");
 const storeRouter = require("./routes/storeRoutes");
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // 3) ROUTES\
 app.use("/api/v1/dropdowns", dropDownRouter);
+app.use("/api/v1/items", itemRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/requests", requestRouter);
 app.use("/api/v1/stores", storeRouter);
