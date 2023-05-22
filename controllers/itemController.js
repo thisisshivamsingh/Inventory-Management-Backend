@@ -2,11 +2,15 @@ const Item = require("../models/itemModel");
 
 exports.createItem = async (req, res, next) => {
   try {
-    const doc = await Item.create(req.body);
-    res.status(200).json({
-      message: "success",
-      data: doc,
-    });
+    const itemInLower = req.body.itemName.toLowerCase();
+    const checkPresent = await Item.find({ itemName: itemInLower });
+    if (checkPresent.length > 0) {
+      const doc = await Item.create({ itemName: itemInLower });
+      res.status(200).json({
+        message: "success",
+        data: doc,
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "fail",
