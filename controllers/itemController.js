@@ -41,3 +41,33 @@ exports.getItem = async (req, res, next) => {
     });
   }
 };
+
+exports.deleteItem = async (req, res, next) => {
+  try {
+    await Item.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+// exports.updateItem = async (req, res, next) => {
+//   try {
+//     await Item.findByIdAndUpdate(req.params.id);
+//     res.status(204).json({
+//       status: "success",
+//       data: null,
+//     });
+//   } catch (err) {
+//     res.status(400).json({
+//       status: "fail",
+//       message: err,
+//     });
+//   }
+// };
