@@ -6,9 +6,9 @@ const departmentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Department Name is Required"],
     },
-    departmentId: {
+    departmenHeadId: {
       type: mongoose.Schema.ObjectId,
-      ref: "DropDown",
+      ref: "User",
       default: null,
     },
   },
