@@ -17,8 +17,7 @@ exports.createItem = async (req, res, next) => {
 
 exports.getItem = async (req, res, next) => {
   try {
-    const filterObj = { departmentId: req.params.departId };
-    const query = Item.find(filterObj);
+    const query = Item.find();
 
     // Pagination
     const page = req.query.page * 1 || 1;
