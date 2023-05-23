@@ -12,7 +12,7 @@ exports.createDepartment = async (req, res, next) => {
     if (!checkPresent) {
       const doc = await Department.create({
         departmentName: departmentInLower,
-        departmentHeadId: departmentHeadId,
+        departmentHeadId: departmentHeadId ? departmentHeadId : null,
       });
       res.status(200).json({
         message: "success",
