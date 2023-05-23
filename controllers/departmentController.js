@@ -3,13 +3,16 @@ const mongoose = require("mongoose");
 
 exports.createDepartment = async (req, res, next) => {
   try {
-    const departmentInLower = req.body.departmentName.toLowerCase();
+    const { departmentName, departmentHeadId } = req.body;
+    const departmentInLower = departmentName.toLowerCase();
     const checkPresent = await Department.findOne({
       departmentName: departmentInLower,
     });
+
     if (!checkPresent) {
       const doc = await Department.create({
         departmentName: departmentInLower,
+        departmentHeadId: departmentHeadId,
       });
       res.status(200).json({
         message: "success",
