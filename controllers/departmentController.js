@@ -30,15 +30,33 @@ exports.createDepartment = async (req, res, next) => {
 
 exports.getDepartment = async (req, res, next) => {
   try {
-    const query = Department.find().populate("User");
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1;
+
+    const doc = await Department.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "departmentHeadId",
+          foreignField: "_id",
+          as: "info",
+        },
+      },
+      {
+        $unwind: {
+          path: "$info",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      { $skip: (page - 1) * limit },
+      { $limit: limit || 100 },
+    ]);
+    // Department.find().populate("User");
 
     // Pagination
-    const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 100;
-    const skip = (page - 1) * limit;
 
     // page=3&limit=10, 1-10, page 1, 11-20, page 2, 21-30 page 3
-    const doc = await query.skip(skip).limit(limit);
+
     res.status(200).json({
       message: "success",
       data: doc,
@@ -53,7 +71,8 @@ exports.getDepartment = async (req, res, next) => {
 
 exports.getDepartmentById = async (req, res, next) => {
   try {
-    const doc = await Department.findById(req.params.id).populate("User");
+    const doc = await Department.findById(req.params.id);
+    console.log("<<<--->>>", doc);
     res.status(200).json({
       message: "success",
       data: doc,

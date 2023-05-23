@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   },
   departmentId: {
     type: mongoose.Schema.ObjectId,
-    ref: "DropDown",
+    ref: "Department",
     required: true,
   },
 });

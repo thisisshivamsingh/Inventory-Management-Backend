@@ -6,7 +6,7 @@ const departmentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Department Name is Required"],
     },
-    departmenHeadId: {
+    departmentHeadId: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
       default: null,
@@ -16,7 +16,7 @@ const departmentSchema = new mongoose.Schema(
 );
 
 departmentSchema.index(
-  { departmentName: 1, departmenHeadId: 1 },
+  { departmentName: 1, departmentHeadId: 1 },
   { unique: true }
 );
 
