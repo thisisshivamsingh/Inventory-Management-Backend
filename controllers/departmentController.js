@@ -111,11 +111,16 @@ exports.getDepartmentById = async (req, res, next) => {
 };
 
 exports.updateDepartment = async (req, res, next) => {
+  const { departmentHeadId = null, departmentName } = req.body;
   try {
-    const doc = await Department.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const doc = await Department.findByIdAndUpdate(
+      req.params.id,
+      { departmentName, departmentHeadId },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     res.status(200).json({
       status: "success",
