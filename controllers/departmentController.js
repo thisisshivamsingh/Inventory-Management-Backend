@@ -115,7 +115,10 @@ exports.updateDepartment = async (req, res, next) => {
   try {
     const doc = await Department.findByIdAndUpdate(
       req.params.id,
-      { departmentName, departmentHeadId },
+      {
+        departmentName,
+        departmentHeadId: departmentHeadId ? departmentHeadId : null,
+      },
       {
         new: true,
         runValidators: true,
