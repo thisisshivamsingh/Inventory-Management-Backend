@@ -9,7 +9,8 @@ router
 
 router
   .route("/:id")
-  .post(departmentController.getDepartmentById)
-  .post(departmentController.updateDepartment);
+  .get(departmentController.getDepartmentById)
+  .patch(departmentController.updateDepartment)
+  .delete(departmentController.deleteDepartment);
 
 module.exports = router;

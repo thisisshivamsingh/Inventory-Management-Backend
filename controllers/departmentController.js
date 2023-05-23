@@ -1,4 +1,5 @@
 const Department = require("../models/departmentModel");
+const mongoose = require("mongoose");
 
 exports.createDepartment = async (req, res, next) => {
   try {
@@ -31,7 +32,7 @@ exports.createDepartment = async (req, res, next) => {
 exports.getDepartment = async (req, res, next) => {
   try {
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1;
+    const limit = req.query.limit * 1 || 10;
 
     const doc = await Department.aggregate([
       {
@@ -71,11 +72,32 @@ exports.getDepartment = async (req, res, next) => {
 
 exports.getDepartmentById = async (req, res, next) => {
   try {
-    const doc = await Department.findById(req.params.id);
-    console.log("<<<--->>>", doc);
+    console.log("<<<>>>", req.params.id);
+    const doc = await Department.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "departmentHeadId",
+          foreignField: "_id",
+          as: "info",
+        },
+      },
+      {
+        $unwind: {
+          path: "$info",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+    ]);
+
     res.status(200).json({
       message: "success",
-      data: doc,
+      data: doc[0],
     });
   } catch (err) {
     res.status(400).json({
@@ -91,11 +113,27 @@ exports.updateDepartment = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
+
     res.status(200).json({
       status: "success",
       data: {
         data: doc,
       },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.deleteDepartment = async (req, res, next) => {
+  try {
+    await Department.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: "success",
+      data: null,
     });
   } catch (err) {
     res.status(400).json({
