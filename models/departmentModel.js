@@ -15,5 +15,10 @@ const departmentSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 );
 
+departmentSchema.index(
+  { departmentName: 1, departmenHeadId: 1 },
+  { unique: true }
+);
+
 const Department = mongoose.model("Department", departmentSchema);
 module.exports = Department;

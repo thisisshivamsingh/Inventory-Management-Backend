@@ -8,6 +8,7 @@ const orderRouter = require("./routes/orderRoutes");
 const requestRouter = require("./routes/requestRoutes");
 const storeRouter = require("./routes/storeRoutes");
 const userRouter = require("./routes/userRoutes");
+const departmentRouter = require("./routes/departmentRoutes");
 
 // 1) MIDDLEWARES
 if (process.env.NODE_ENV === "development") {
@@ -25,5 +26,6 @@ app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/requests", requestRouter);
 app.use("/api/v1/stores", storeRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/departments", departmentRouter);
 
 module.exports = app;
