@@ -2,11 +2,26 @@ const User = require("../models/userModel");
 
 exports.createUser = async (req, res, next) => {
   try {
-    const doc = await User.create(req.body);
-    res.status(200).json({
-      message: "success",
-      data: doc,
+    const { userName, departmentId } = req.body;
+    const userNameInLower = userName.toLowerCase();
+    const checkPresent = await User.findOne({
+      userName: userNameInLower,
     });
+    if (!checkPresent) {
+      const doc = await User.create({
+        userName: userNameInLower,
+        departmentId: departmentId,
+      });
+      res.status(200).json({
+        message: "success",
+        data: doc,
+      });
+    } else {
+      res.status(400).json({
+        status: "fail",
+        message: "User is already Present.",
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -32,6 +47,32 @@ exports.getUser = async (req, res, next) => {
     });
   } catch (err) {
     res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const { userName = null } = req.body;
+    const doc = await User.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, userName: userName?.toLowerCase() },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        data: doc,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
       status: "fail",
       message: err,
     });
