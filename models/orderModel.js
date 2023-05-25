@@ -1,30 +1,26 @@
 const mongoose = require("mongoose");
 
-const orderSchema = new mongoose.Schema({
-  departmentId: {
-    type: mongoose.Schema.ObjectId,
-    required: [true, "Order must belong to a department"],
-  },
-  orderQuantity: {
-    type: Number,
-  },
-  fulfilledAt: {
-    type: Date,
-  },
-  status: {
-    type: String,
-    required: [true, "Status is Required"],
-    enum: {
-      values: ["order", "shipped", "out for delivery", "arriving today"],
-      message:
-        "Key is either: order, shipped, out for delivery, arriving today",
+const orderSchema = new mongoose.Schema(
+  {
+    departmentId: {
+      type: mongoose.Schema.ObjectId,
+      required: [true, "Order must belong to a department"],
     },
+    orderQuantity: { type: Number },
+    fulfilledAt: { type: Date },
+    status: {
+      type: String,
+      required: [true, "Status is Required"],
+      enum: { values: ["Pending", "Processed"] },
+    },
+    itemId: {
+      type: mongoose.Schema.ObjectId,
+      required: [true, "Order must belong to a item"],
+    },
+    receivedQuantity: { type: Number, default: 0 },
   },
-  itemId: {
-    type: mongoose.Schema.ObjectId,
-    required: [true, "Order must belong to a item"],
-  },
-});
+  { timestamps: true, versionKey: false }
+);
 
 const Order = mongoose.model("Order", orderSchema);
 module.exports = Order;
