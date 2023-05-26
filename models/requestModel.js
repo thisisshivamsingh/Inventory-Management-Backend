@@ -11,13 +11,23 @@ const requestSchema = new mongoose.Schema(
         type: mongoose.Schema.ObjectId,
         required: [true, "Request must belong to a department"],
       },
-      itemId: {
-        type: mongoose.Schema.ObjectId,
-        required: [true, "Request must belong to a item"],
-      },
-      requiredQuantity: { type: Number },
-      consumedQuantity: { type: Number },
-      receivedQuantity: { type: Number },
+      itemInfo: [
+        {
+          itemId: {
+            type: mongoose.Schema.ObjectId,
+            required: [true, "Request must belong to a item Id"],
+          },
+          requiredQuantity: {
+            type: Number,
+            required: [true, "Request must contain a count"],
+          },
+          consumedQuantity: {
+            type: Number,
+            default: 0,
+          },
+          receivedQuantity: { type: Number, default: 0 },
+        },
+      ],
       status: {
         type: String,
         enum: {
