@@ -7,4 +7,8 @@ router
   .post(requestController.createRequest)
   .get(requestController.getRequest);
 
+router
+  .route("/item-store-request")
+  .get(requestController.getItemUserStoreRequestById);
+
 module.exports = router;

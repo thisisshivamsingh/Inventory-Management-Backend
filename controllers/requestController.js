@@ -82,7 +82,23 @@ exports.getRequest = async (req, res, next) => {
   }
 };
 
-// exports.getItemRequest =
+exports.getItemUserStoreRequestById = async (req, res, next) => {
+  try {
+    const { userId, itemId, departmentId } = req.body;
+    const obj = { userId, itemId, departmentId };
+    const query = await UserStore.find(obj);
+
+    res.status(200).json({
+      message: "success",
+      data: query,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
 
 // exports.getRequestsOfUser = async (req, res, next) => {
 //   try {
