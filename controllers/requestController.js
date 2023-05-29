@@ -86,7 +86,7 @@ exports.getItemUserStoreRequestById = async (req, res, next) => {
   try {
     const { userId, itemId, departmentId } = req.body;
     const obj = { userId, itemId, departmentId };
-    const query = await UserStore.findOne(obj);
+    const query = await UserStore.findOne(obj).populate("itemId");
 
     res.status(200).json({
       message: "success",

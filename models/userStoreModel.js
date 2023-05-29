@@ -12,6 +12,7 @@ const userStoreSchema = new mongoose.Schema(
     },
     itemId: {
       type: mongoose.Schema.ObjectId,
+      ref: "Item",
       required: [true, "Request must belong to a item Id"],
     },
     requiredQuantity: {
