@@ -9,6 +9,6 @@ router
 
 router
   .route("/item-store-request")
-  .get(requestController.getItemUserStoreRequestById);
+  .post(requestController.getItemUserStoreRequestById);
 
 module.exports = router;
