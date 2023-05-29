@@ -25,8 +25,8 @@ const requestSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ["pending", "proccessed"],
-        message: "Key is either: pending, proccessed",
+        values: ["pending", "processed"],
+        message: "Key is either: pending, processed",
       },
       default: "pending",
     },

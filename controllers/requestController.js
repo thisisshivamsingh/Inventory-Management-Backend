@@ -82,6 +82,8 @@ exports.getRequest = async (req, res, next) => {
   }
 };
 
+exports.getItemRequest = 
+
 // exports.getRequestsOfUser = async (req, res, next) => {
 //   try {
 //     const filterObj = { userId: req.params.id };
