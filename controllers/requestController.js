@@ -82,7 +82,7 @@ exports.getRequest = async (req, res, next) => {
   }
 };
 
-exports.getItemRequest = 
+// exports.getItemRequest =
 
 // exports.getRequestsOfUser = async (req, res, next) => {
 //   try {
