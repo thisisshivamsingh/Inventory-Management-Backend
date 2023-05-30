@@ -15,4 +15,8 @@ router
   .route("/get-items-count-with-status")
   .post(requestController.getItemsCountWithStatus);
 
+router
+  .route("/get-item-info-by-itemId/:id")
+  .get(requestController.getItemInfoByItemId);
+
 module.exports = router;

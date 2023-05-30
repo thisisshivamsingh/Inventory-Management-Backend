@@ -156,6 +156,22 @@ exports.getItemsCountWithStatus = async (req, res, next) => {
   }
 };
 
+exports.getItemInfoByItemId = async (req, res, next) => {
+  try {
+    const doc = await Request.findById(req.params.id).populate(
+      "itemInfo.itemId"
+    );
+    res.status(200).json({
+      message: "success",
+      data: doc,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
 // exports.getRequestsOfUser = async (req, res, next) => {
 //   try {
 //     const filterObj = { userId: req.params.id };
