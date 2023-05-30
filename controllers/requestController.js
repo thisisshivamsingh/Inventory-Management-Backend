@@ -100,6 +100,62 @@ exports.getItemUserStoreRequestById = async (req, res, next) => {
   }
 };
 
+exports.getItemsCountWithStatus = async (req, res, next) => {
+  try {
+    const { userId, departmentId } = req.body;
+
+    const query = await Request.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              userId: new mongoose.Types.ObjectId(userId),
+            },
+            {
+              departmentId: new mongoose.Types.ObjectId(departmentId),
+            },
+          ],
+        },
+      },
+      { $unwind: `$itemInfo` },
+      {
+        $group: {
+          _id: "$_id",
+          totalRequiredQuantity: { $sum: `$itemInfo.requiredQuantity` },
+          status: { $first: "$status" }, // Include other document field
+          createdAt: { $first: "$createdAt" }, // Include another document field
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          documents: {
+            $push: {
+              _id: "$_id",
+              requiredQuantity: "$totalRequiredQuantity",
+              status: "$status",
+              createdAt: "$createdAt",
+            },
+          },
+        },
+      },
+      {
+        $project: { documents: 1, _id: 0 },
+      },
+    ]);
+    console.log("<<<----->>>", query);
+    res.status(200).json({
+      message: "success",
+      data: query[0],
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
 // exports.getRequestsOfUser = async (req, res, next) => {
 //   try {
 //     const filterObj = { userId: req.params.id };

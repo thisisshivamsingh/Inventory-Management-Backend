@@ -11,4 +11,8 @@ router
   .route("/item-store-request")
   .post(requestController.getItemUserStoreRequestById);
 
+router
+  .route("/get-items-count-with-status")
+  .post(requestController.getItemsCountWithStatus);
+
 module.exports = router;
