@@ -52,7 +52,7 @@ requestSchema.pre("save", async function (next) {
     { new: true, upsert: true }
   );
 
-  doc.requestId = "RQ" + t.seq;
+  doc.requestId = "REQ-" + t.seq;
 
   next();
 });
