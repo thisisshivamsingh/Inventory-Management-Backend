@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const counterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 },
+});
+
+const Counter = mongoose.model("Counter", counterSchema);
+
 const requestSchema = new mongoose.Schema(
   {
     userId: {
@@ -10,6 +17,7 @@ const requestSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       required: [true, "Request must belong to a department"],
     },
+    requestId: { type: String, unique: true },
     itemInfo: [
       {
         itemId: {
@@ -34,6 +42,20 @@ const requestSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 );
+
+requestSchema.pre("save", async function (next) {
+  const doc = this;
+
+  const t = await Counter.findByIdAndUpdate(
+    { _id: "requestId" },
+    { $inc: { seq: 1 } },
+    { new: true, upsert: true }
+  );
+
+  doc.requestId = "RQ" + t.seq;
+
+  next();
+});
 
 const Request = mongoose.model("Request", requestSchema);
 module.exports = Request;
