@@ -21,16 +21,16 @@ const requestSchema = new mongoose.Schema(
           type: Number,
           required: [true, "Request must contain a count"],
         },
+        status: {
+          type: String,
+          enum: {
+            values: ["pending", "processed"],
+            message: "Key is either: pending, processed",
+          },
+          default: "pending",
+        },
       },
     ],
-    status: {
-      type: String,
-      enum: {
-        values: ["pending", "processed"],
-        message: "Key is either: pending, processed",
-      },
-      default: "pending",
-    },
   },
   { timestamps: true, versionKey: false }
 );

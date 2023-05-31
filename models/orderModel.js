@@ -10,8 +10,8 @@ const orderSchema = new mongoose.Schema(
     fulfilledAt: { type: Date },
     status: {
       type: String,
-      required: [true, "Status is Required"],
       enum: { values: ["Pending", "Processed"] },
+      default: "Pending",
     },
     itemId: {
       type: mongoose.Schema.ObjectId,

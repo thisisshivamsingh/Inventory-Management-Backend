@@ -143,6 +143,7 @@ exports.getItemsCountWithStatus = async (req, res, next) => {
         $project: { documents: 1, _id: 0 },
       },
     ]);
+
     console.log("<<<----->>>", query);
     res.status(200).json({
       message: "success",
